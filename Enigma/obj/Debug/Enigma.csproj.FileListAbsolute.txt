@@ -8,3 +8,13 @@ C:\Users\Socrates\source\repos\Enigma\Enigma\obj\Debug\Enigma.csproj.GenerateRes
 C:\Users\Socrates\source\repos\Enigma\Enigma\obj\Debug\Enigma.csproj.CoreCompileInputs.cache
 C:\Users\Socrates\source\repos\Enigma\Enigma\obj\Debug\Enigma.exe
 C:\Users\Socrates\source\repos\Enigma\Enigma\obj\Debug\Enigma.pdb
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.csprojResolveAssemblyReference.cache
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.Form1.resources
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.Properties.Resources.resources
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.csproj.GenerateResource.cache
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.csproj.CoreCompileInputs.cache
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.exe
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\obj\Debug\Enigma.pdb
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\bin\Debug\Enigma.exe.config
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\bin\Debug\Enigma.exe
+C:\Users\Tiaranet\Source\Repos\UASpemvis\Enigma\bin\Debug\Enigma.pdb
