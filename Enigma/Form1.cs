@@ -18,7 +18,15 @@ namespace Enigma
         public int n;
         public int l = 0;
         public bool backspace = false;
-        
+        public string sInput;
+        string sOutput;
+        bool plug;
+
+        int pos1, pos2;
+        char[] alphabet = alpha.ToCharArray();
+        char[] temp = new char[26];
+        bool[] flag = new bool[26];
+
         public static string sModel = "Enigma I";
         public static string sRotor1 = "I";
         public static string sRotor2 = "II";
@@ -51,6 +59,13 @@ namespace Enigma
         public Form1()
         {
             InitializeComponent();
+            textBox1.CharacterCasing = CharacterCasing.Upper;
+            for (int i = 3; i < 29; i++)
+            {
+                TextBox txtBox = this.Controls["textBox" + i.ToString()] as TextBox;
+                txtBox.CharacterCasing = CharacterCasing.Upper;
+                txtBox.MaxLength = 1;
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -60,7 +75,7 @@ namespace Enigma
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -97,12 +112,25 @@ namespace Enigma
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            EnigmaKeyDown(sender,e);
+            if (textBox1.Text != "")
+            {
+                if (plug == false)
+                {
+                    Plugboard();
+                }
+
+                pos1 = Array.FindIndex(alphabet, element => element == textBox1.Text[l]);
+                string ins = textBox1.Text.Substring(l, 1);
+                char sin = Array.Find(temp, element => element == temp[pos1]);
+
+                sInput = sin.ToString();
+                EnigmaKeyDown(sender, e);
+                
+            }
         }
 
         private void EnigmaKeyDown(object sender, EventArgs e)
         {
-            textBox1.CharacterCasing = CharacterCasing.Upper;
             if (backspace == true)
             {
                 if (textBox2.Text.Substring(textBox2.Text.Length - 1, 1) != " " && ralpha.IsMatch(textBox2.Text.Substring(textBox2.Text.Length - 1, 1)))
@@ -203,26 +231,47 @@ namespace Enigma
         {
             iii++;
             if (iii > 25)
-                iii = iii - 26;
-
-            if (ii == (notch2 - 1) || ii == (notch2second - 1))
             {
-                i++;
+                iii = iii - 26;
                 ii++;
             }
-            else
-            {
 
-                if (iii == notch3 || iii == notch3second)
-                {
-                    ii++;
-                }
-            }
+            //if (ii == (notch2 - 1) || ii == (notch2second - 1))
+            //{
+            //    i++;
+            //    ii++;
+            //}
+            //else
+            //{
+
+            //    if (iii == notch3 || iii == notch3second)
+            //    {
+            //        ii++;
+            //    }
+            //}
             if (ii > 25)
+            {
                 ii = ii - 26;
+                i++;
+            }
 
             if (i > 25)
                 i = i - 26;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            //Plugboard();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Plugboard();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            resetPlugboard();
         }
 
         private void Decrement_Rotors()
@@ -255,8 +304,8 @@ namespace Enigma
         private void Encrypt()
         {
             shidden = "";
-            string sOutput = "";
-            string sInput = textBox1.Text.Substring(l, 1);
+            
+            //sInput = textBox1.Text.Substring(l, 1);
             i = Int32.Parse(numericUpDown1.Value.ToString()) - 1;
             ii = Int32.Parse(numericUpDown2.Value.ToString()) - 1;
             iii = Int32.Parse(numericUpDown3.Value.ToString()) - 1;
@@ -336,10 +385,68 @@ namespace Enigma
             numericUpDown3.Value = iii + 1;
             numericUpDown2.Value = ii + 1;
             numericUpDown1.Value = i + 1;
+
+            pos2 = Array.FindIndex(temp, element => element == sOutput[0]);
+            sOutput = alphabet[pos2].ToString();
             textBox2.Text += sOutput;
+            //label33.Text = i.ToString();
             //tbxHidden.Text = shidden;
         }
 
+        private void Plugboard()
+        {            
+            for (int j = 3; j < 29; j++)
+            {
+                TextBox txtBox = this.Controls["textBox" + j.ToString()] as TextBox;
+                pos1 = j - 3;
+                if (txtBox.Text == "")
+                {
+                    if (flag[pos1] == false)
+                    {
+                        txtBox.Text = alphabet[pos1].ToString();
+                        temp[pos1] = alphabet[pos1];
+                    }
+                    else
+                    {
+                        if(txtBox.Text == "")
+                        {
+                            txtBox.Text = temp[pos1].ToString();
+                        }
+                    }
+                }
+                else
+                {
+                    pos2 = Array.FindIndex(alphabet, element => element == Convert.ToChar(txtBox.Text));
+                    temp[pos1] = Array.Find(alphabet, element => element == Convert.ToChar(txtBox.Text));
+                    temp[pos2] = Array.Find(alphabet, element => element == alphabet[pos1]);
+                    if (temp[pos1] == Convert.ToChar(txtBox.Text))
+                    {
+                        if (flag[pos1] == false || flag[pos2] == false)
+                        {
+                            flag[pos1] = true;
+                            flag[pos2] = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Plugboard harus di isi dengan alphabet");
+                    }
+                }
+            }
+            plug = true;
+        }
 
+        private void resetPlugboard()
+        {
+            for (int j = 3; j < 29; j++)
+            {
+                TextBox txtBox = this.Controls["textBox" + j.ToString()] as TextBox;
+                pos1 = j - 3;
+                temp[pos1] = '\0';
+                flag[pos1] = false;
+                plug = false;
+                txtBox.Text = temp[pos1].ToString();
+            }
+        }
     }
 }
